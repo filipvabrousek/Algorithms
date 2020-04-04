@@ -38,5 +38,5 @@ r.addEventListener("click", () => s.recognize([45, 45, 45, 45, 45, 45, 90, 90, 9
 
 
 Source:  
-https://github.com/filipvabrousek/Algorithms/blob/master/Think/Think-3-7-19.js
-https://github.com/filipvabrousek/Algorithms/blob/master/Think/Shaper.js
+https://github.com/filipvabrousek/Algorithms/blob/master/Think/think.js
+https://github.com/filipvabrousek/Algorithms/blob/master/Think/shaper.js
