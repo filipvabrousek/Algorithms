@@ -1,5 +1,5 @@
 # Algorithms
-Advanced algorithms solution
+Advanced algorithms solutions with 0 dependencies
 
 ### Katas
 1. Sum of integers in string
