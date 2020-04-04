@@ -36,7 +36,7 @@ const S = el => document.querySelector(el);
 	
 function getNumberToMultiply(top, below, i, matrix){
 	var eq = `${top}x=-${below}`;
-	console.log(eq);
+	// console.log(eq);
 	
 
 	if (eq.includes("--")){
@@ -93,7 +93,7 @@ function printNicely(m){
 		
 		
 	str += `</tr>`;
-		console.warn("ONE OF 9 NUMBRS " + m[i]);
+		// console.warn("ONE OF 9 NUMBRS " + m[i]);
 	}
 	
 	str += "</table>";
@@ -174,8 +174,7 @@ m[2][2] = belowCD;
 	
 	
 	
-console.warn(m[1][3]);
-console.warn(m[2][3]);
+
 	
 let E = m[1][3];
 let F = m[2][3];
@@ -183,8 +182,7 @@ let F = m[2][3];
 let belowEF = E * res + F;
 m[2][3] = belowEF;
 
-console.warn(m[1][4]);
-console.warn(m[2][4]);
+
 	
 let G = m[1][4];
 let H = m[2][4];
@@ -208,11 +206,10 @@ return m;
 	
 
 function firstAboveDiagonal(m){
-	
 let A = m[2][2];
 let B = m[1][2];
 	
-console.log("***************************************WEIRD MULTIPLIER**************************************")
+
 let res = getNumberToMultiply(A, B, 1, m);
 
 m[1][2] = 0;
@@ -235,51 +232,122 @@ m[1][5] = belowGH;
 	
 printNicely(m);
 	
-/*
+return m;
+}	
 	
-let C = m[1][2];
-let D = m[2][2];
-let belowCD = C * res + D;
-m[2][2] = belowCD;
 	
-console.warn(m[1][3]);
-console.warn(m[2][3]);
+function topRightAboveDiagonal(m){
+let A = m[2][2];
+let B = m[0][2];
 	
-let E = m[1][3];
-let F = m[2][3];
-//console.log(`E IS  ${E}  F IS${F} `);
-let belowEF = E * res + F;
-m[2][3] = belowEF;
 
-console.warn(m[1][4]);
-console.warn(m[2][4]);
+let res = getNumberToMultiply(A, B, 1, m);
+
+m[0][2] = 0;
+S("#content").innerHTML += `Multiply 2nd row with by ${res.toPrecision(2)} and add to 2nd row. <br>`;
 	
-let G = m[1][4];
-let H = m[2][4];
-//console.log(`E IS  ${E}  F IS${F} `);
+let C = m[2][3];
+let D = m[0][3];
+let belowCD = C * res + D;
+m[0][3] = belowCD;
+	
+let E = m[2][4];
+let F = m[0][4];
+let belowEF = E * res + F;
+m[0][4] = belowEF;
+	
+let G = m[2][5];
+let H = m[0][5];
 let belowGH = G * res + H;
-m[2][4] = belowGH;
-	
-let I = m[1][5];
-let J = m[2][5];
-//console.log(`E IS  ${E}  F IS${F} `);
-let belowIJ = I * res + J;
-m[2][5] = belowIJ;
+m[0][5] = belowGH;
 	
 printNicely(m);
-return m;*/
+	
+return m;
 }	
 	
 	
 	
 	
+	
+	
+function topCenterAboveDiagonal(m){
+let A = m[1][1];
+let B = m[0][1];
+	
+
+
+let res = getNumberToMultiply(A, B, 1, m);
+
+m[0][1] = 0;
+S("#content").innerHTML += `Multiply 2nd row with by ${res.toPrecision(2)} and add to 2nd row. <br>`;
+	
+	
+	
+// 1 3  0 3
+// 1 4  0 4
+// 1 5  0 5
+let C = m[1][3];
+let D = m[0][3];
+
+console.log("=====================");
+console.log(C);
+console.log(res);
+console.log(D);
+let belowCD = C * res + D;
+console.warn(belowCD);
+console.warn(String(belowCD).includes("e"));
+	
+if (String(belowCD).includes("e")){
+	m[0][3] = 0 // too small !!!!!
+} else {
+	m[0][3] = belowCD;
+}
+
+	
+	
+	
+// ------
+let E = m[1][4];
+let F = m[0][4];
+let belowEF = E * res + F;
+console.warn("EEEEE");
+console.log(`${E} * ${res} + ${F}`);
+ m[0][4] = belowEF;
+
+	
+	
+let G = m[1][5];
+let H = m[0][5];
+let belowGH = G * res + H;
+m[0][5] = belowGH;
+	
+printNicely(m);
+}	
+	
 var res = begin(matrix, 0, 1);
 var next = begin(res, 0, 2);
 var another = lastBelowDiagonal(next);
 var above = firstAboveDiagonal(another);
-}
+var preLast = topRightAboveDiagonal(above);
+var last = topCenterAboveDiagonal(preLast);
 
-inverse([[2, 1, 9, 1, 0, 0], [3, 8, 1, 0, 1, 0], [6, 8, 1, 0, 0, 1]]);
+
+}
+	
+	
+	
+	
+/*
+
+inverse([[2, 1, 9, 1, 0, 0],
+		 [3, 8, 1, 0, 1, 0], 
+		 [6, 8, 1, 0, 0, 1]]);
+*/
+
+inverse([[2, 4, 2, 1, 0, 0],
+		 [4, 4, 1, 0, 1, 0], 
+		 [2, 2, 2, 0, 0, 1]]);
 
 
 
