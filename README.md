@@ -13,4 +13,5 @@ Advanced algorithms solution
 1. Perceptron 
 2. Neural network
 3. K-Means
+5. Linear-regression
 4. Stroke recognition
