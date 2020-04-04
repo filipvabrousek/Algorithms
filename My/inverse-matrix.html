@@ -7,7 +7,6 @@
 		border-collapse: collapse;
 	}
 	
-	
 	td {
 		width: 2.3em;
 		text-align: center;
@@ -20,12 +19,25 @@
 </style>
 
 <script>
+
+function inverse(matrix, el){
+
 const S = el => document.querySelector(el);
 	
 function getNumberToMultiply(top, below, i, matrix){
-	let eq = `${top}x=-${below}`;
+	var eq = `${top}x=-${below}`;
+	// console.log(eq);
+	
+
+	if (eq.includes("--")){
+		var find = "--";
+		var re = new RegExp(find, "g");
+		eq = eq.replace(re, "");
+	}
+	
 	console.log(eq);
 	
+	// -16x=--12.5
 	// 2x=-4
 	let two = eq.split("x")[0];
 	let four = eq.split("=")[1];
@@ -65,13 +77,17 @@ function printNicely(m){
 		
 		
 	str += `</tr>`;
-		console.warn("ONE OF 9 NUMBRS " + m[i]);
+		// console.warn("ONE OF 9 NUMBRS " + m[i]);
 	}
 	
 	str += "</table>";
 	
 	S("#content").innerHTML += str;
 }
+	
+	
+	
+
 	
 	
 function begin(m, zero, one){
@@ -85,7 +101,7 @@ let A = m[zero][0];
 let B = m[one][0];
 let res = getNumberToMultiply(A, B, 1, m);
 m[one][0] = 0;
-S("#content").innerHTML += `Multiply First row with by ${res} and add to 2nd row. <br>`;
+// S("#content").innerHTML += `Multiply First row with by ${res} and add to 2nd row. <br>`;
 	
 let C = m[zero][1];
 let D = m[one][1];
@@ -119,12 +135,7 @@ return m;
 }	
 	
 	
-var res = begin([[2, 1, 9, 1, 0, 0], 
-			  	 [3, 8, 1, 0, 1, 0], 
-			  	 [6, 8, 1, 0, 0, 1],],
-				 0, 1);
 
-var next = begin(res, 0, 2);
 	
 // https://matrixcalc.org/cs/#rank%28%7B%7B2,1,9%7D,%7B3,8,1%7D,%7B6,8,1%7D%7D%29
 	
@@ -135,7 +146,7 @@ let A = m[1][1];
 let B = m[2][1];
 let res = getNumberToMultiply(A, B, 1, m);
 m[2][1] = 0;
-S("#content").innerHTML += `Multiply 2nd row with by ${res.toPrecision(2)} and add to 2nd row. <br>`;
+// S("#content").innerHTML += `Multiply 2nd row with by ${res.toPrecision(2)} and add to 2nd row. <br>`;
 	
 	
 	
@@ -147,8 +158,7 @@ m[2][2] = belowCD;
 	
 	
 	
-console.warn(m[1][3]);
-console.warn(m[2][3]);
+
 	
 let E = m[1][3];
 let F = m[2][3];
@@ -156,8 +166,7 @@ let F = m[2][3];
 let belowEF = E * res + F;
 m[2][3] = belowEF;
 
-console.warn(m[1][4]);
-console.warn(m[2][4]);
+
 	
 let G = m[1][4];
 let H = m[2][4];
@@ -174,7 +183,170 @@ m[2][5] = belowIJ;
 printNicely(m);
 return m;
 }	
+	
+	
+function firstAboveDiagonal(m){
+let A = m[2][2];
+let B = m[1][2];
+	
+let res = getNumberToMultiply(A, B, 1, m);
 
+m[1][2] = 0;
+// S("#content").innerHTML += `Multiply 2nd row with by ${res.toPrecision(2)} and add to 2nd row. <br>`;
+	
+let C = m[2][3];
+let D = m[1][3];
+let belowCD = C * res + D;
+m[1][3] = belowCD;
+	
+let E = m[2][4];
+let F = m[1][4];
+let belowEF = E * res + F;
+m[1][4] = belowEF;
+	
+let G = m[2][5];
+let H = m[1][5];
+let belowGH = G * res + H;
+m[1][5] = belowGH;
+	
+printNicely(m);
+return m;
+}		
+	
+function topRightAboveDiagonal(m){
+let A = m[2][2];
+let B = m[0][2];
+	
+
+let res = getNumberToMultiply(A, B, 1, m);
+m[0][2] = 0;
+
+// S("#content").innerHTML += `Multiply 2nd row with by ${res.toPrecision(2)} and add to 2nd row. <br>`;
+	
+let C = m[2][3];
+let D = m[0][3];
+let belowCD = C * res + D;
+m[0][3] = belowCD;
+	
+let E = m[2][4];
+let F = m[0][4];
+let belowEF = E * res + F;
+m[0][4] = belowEF;
+	
+let G = m[2][5];
+let H = m[0][5];
+let belowGH = G * res + H;
+m[0][5] = belowGH;
+	
+printNicely(m);
+	
+return m;
+}	
+	
+	
+	
+	
+	
+	
+function topCenterAboveDiagonal(m){
+let A = m[1][1];
+let B = m[0][1];
+	
+
+
+let res = getNumberToMultiply(A, B, 1, m);
+
+m[0][1] = 0;
+
+// S("#content").innerHTML += `Multiply 2nd row with by ${res.toPrecision(2)} and add to 2nd row. <br>`;
+	
+	
+	
+// 1 3  0 3
+// 1 4  0 4
+// 1 5  0 5
+let C = m[1][3];
+let D = m[0][3];
+
+console.log("=====================");
+console.log(C);
+console.log(res);
+console.log(D);
+let belowCD = C * res + D;
+console.warn(belowCD);
+console.warn(String(belowCD).includes("e"));
+	
+if (String(belowCD).includes("e")){
+	m[0][3] = 0 // too small !!!!!
+} else {
+	m[0][3] = belowCD;
+}
+	
+// ------
+let E = m[1][4];
+let F = m[0][4];
+let belowEF = E * res + F;
+console.warn("EEEEE");
+console.log(`${E} * ${res} + ${F}`);
+ m[0][4] = belowEF;
+
+	
+	
+let G = m[1][5];
+let H = m[0][5];
+let belowGH = G * res + H;
+m[0][5] = belowGH;
+	
+printNicely(m);
+	
+return m;
+}	
+	
+	
+	
+function solveDiagonal(m){
+let numberA =  m[0][0];
+let multA = parseFloat(1 / numberA);	
+	
+m[0][0] = multA * numberA;
+m[0][3] = m[0][3] * multA;
+m[0][4] = m[0][4] * multA;
+m[0][5] = m[0][5] * multA;
+	
+let numberB =  m[1][1];
+let multB = parseFloat(1 / numberB);	
+	
+m[1][1] = multB * numberB;
+m[1][3] = m[1][3] * multB;
+m[1][4] = m[1][4] * multB;
+m[1][5] = m[1][5] * multB;
+	
+
+let numberC =  m[2][2];
+let multC = parseFloat(1 / numberC);	
+	
+m[2][2] = multC * numberC;
+m[2][3] = m[2][3] * multC;
+m[2][4] = m[2][4] * multC;
+m[2][5] = m[2][5] * multC;
+	
+printNicely(m);
+}
+	
+var res = begin(matrix, 0, 1);
+var next = begin(res, 0, 2);
 var another = lastBelowDiagonal(next);
+var above = firstAboveDiagonal(another);
+var preLast = topRightAboveDiagonal(above);
+var last = topCenterAboveDiagonal(preLast);
+var final = solveDiagonal(last);
+}
+	
+inverse([[2, 4, 2, 1, 0, 0],
+		 [4, 4, 1, 0, 1, 0], 
+		 [2, 2, 2, 0, 0, 1]]);
 
+// 04/04/2020 - 21:42 DONE !!!!
+// ~ 6 hours during 2 days
+// PROOF: https://matrixcalc.org/cs/#%7B%7B2,4,2%7D,%7B4,4,1%7D,%7B2,2,2%7D%7D%5E%28-1%29
 </script>
