@@ -9,7 +9,8 @@ Advanced algorithms solution
 1. Written multiplication
 2. Inverse matrix
 
-### ML
+### Think.js
 1. Perceptron 
 2. Neural network
 3. K-Means
+4. Stroke recognition
