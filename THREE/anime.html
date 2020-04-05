@@ -1,0 +1,204 @@
+
+<body></body>
+<script src="https://cdn.jsdelivr.net/mojs/latest/mo.min.js"></script>
+
+<script>
+	
+	
+	
+	
+const circle = new mojs.Shape({
+	fill: "none",
+	radius: 25,
+	strokeWidth: {30 : 0},
+	scale: {0 : 1},
+	angle: {"rand(-35, -70)" : 0},
+	duration: 500,
+	left: 0,
+	top: 0,
+	easing: "cubic.out",
+	stroke: "#3498db"
+});
+	
+document.addEventListener("click", (e) => {
+	circle
+	.tune({x: e.pageX, y: e.pageY})
+	.replay();
+});
+	
+
+	
+/*
+const OPTS = {
+  fill:           'none',
+  radius:         25,
+  strokeWidth:    { 50 : 0 },
+  scale:          { 0: 1 },
+  angle:          { 'rand(-35, -70)': 0 },
+  duration:       500,
+  left: 0,        top: 0,
+  easing: 'cubic.out'
+};
+
+const circle1 = new mojs.Shape({
+  ...OPTS,
+  stroke:         'cyan',
+});
+
+const circle2 = new mojs.Shape({
+  ...OPTS,
+  radius:         { 0 : 15 },
+  strokeWidth:    { 30: 0 },
+  stroke:         'magenta',
+  delay:          'rand(75, 150)'
+});
+
+document.addEventListener( 'click', function (e) {
+  
+   circle1
+    .tune({ x: e.pageX, y: e.pageY  })
+    .replay();
+  
+  circle2
+    .tune({ x: e.pageX, y: e.pageY  })
+    .replay();
+  
+});
+*/
+	
+	
+	
+	
+// ------------------Click Circle------------------
+	
+/*
+
+
+const circ = new mojs.Shape({
+	isShowStart: true,
+	stroke: "#3498db",
+	strokeWidth: 6,
+	fill: "none",
+	radius: {20:40},
+	opacity: {1:0},
+	duration: 600
+}).play();
+	
+	*/
+	
+// ------------------Single Line Burst------------------
+	
+// single line burst
+// const burst = new mojs.Burst().play();
+	
+// https://www.makeuseof.com/tag/beautiful-web-animations-mo-js/
+	
+
+
+// https://codepen.io/JohanVelasquez/pen/eMpqKE
+	
+	
+	
+	
+	
+// more advanced burst
+	/*
+const burst = new mojs.Burst({
+  radius:   { 0: 100 },
+  count:    3
+});
+	
+burst.play();*/
+	
+	
+	
+	
+	
+	
+/*
+new mojs.Shape({
+  parent:       '#boun',
+  shape:        'circle',
+  fill:         {'#F64040': '#FC46AD'},
+  radius:       {20: 80},
+  duration:     2000,
+  isYoyo:       true,
+  isShowStart:  true,
+  easing:       'elastic.inout',
+  repeat:       1,
+})*/
+	
+	
+
+
+// https://codepen.io/JohanVelasquez/pen/eMpqKE
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+/*
+anime({
+targets: "#con",
+borderRadius: ["0%", "60%"],
+duration: 3000,
+easing: "easeInOutExpo",
+complete: () => {
+	anime({
+		targets: "#con",
+		opacity: 0
+	});
+}
+});*/
+
+</script>
+
+
+
+
+<style>
+	#con {
+		width: 120;
+		height: 120;
+		color: blue;
+		background: #3498db;
+	}
+
+</style>
