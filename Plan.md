@@ -2,6 +2,7 @@
 1) Messages - then present chat through UIViewControllerReprentable
 
 ## Runny
-1) Stats
-2) HistoryController - present activity detail through UIViewControllerRepresentable
+1) totalsStack  (StatsVC)
+2) SumarryStack (SumarryVC)
+3) 
 
