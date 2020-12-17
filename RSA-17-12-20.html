@@ -1,0 +1,448 @@
+<meta charset="UTF-8">
+
+
+<h2>RSA Encryption</h2>
+
+
+
+<div id="values">
+<input id="message"type="text" value="123">
+    
+    
+    <!--placeholder="Zadejte zprávu" value="Dneska je ale venku velice krásné počasí"--->
+<input id="pPrime" type="number" placeholder="Zadejte hodnotu P" value="61">
+<input id="qPrime" type="number" placeholder="Zadejte hodnotu Q" value="53">
+<input id="ePrime" type="number" placeholder="Zadejte hodnotu E" value="17">
+    
+<button id="encrypt">Encrypt</button>
+<button id="decrypt">Decrypt</button>
+    
+    
+    
+    <input type="text" id="encryptedMessage" placeholder="Zašifrovaná zpráva">
+</div>
+
+
+
+
+
+
+<p id="publicKey"></p>
+<p id="privateKey"></p>
+
+
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    
+    h2 {
+        text-align: center;
+    }
+    
+    #values {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    #values input {
+        width: 20em;
+        margin: 1em;
+        padding: 0.33em;
+        border-radius: 0.5em;
+        border: 2px solid gray;
+    }
+
+</style>
+
+
+
+<script>
+    
+class KeyGenerator {
+    constructor(){
+        this.data = {
+            p: "",
+            q: "",
+            e: ""
+        }
+    }
+    
+    setInput(p, q, e){
+        this.data.p = p;
+        this.data.q = q;
+        this.data.e = e;
+   }
+    
+    keys(){
+      var n = this.data.p * this.data.q;
+      var phi = (this.data.p-1n)*(this.data.q-1n);
+      var d = this.modInverse(Number(this.data.e), Number(phi));
+    
+        return {  //Public key: [e,n], Private key: [d,n]
+            public: [this.data.e, n],
+            private: [d, n],
+            d: d
+        }
+    }
+    
+    
+ modInverse(e, phi){
+  var m0 = phi, t, q;
+  var x0 = 0, x1 =1;
+  
+  if(phi == 1)
+    return 0;
+    
+  while (e > 1){
+    //q is quotient
+    q = Math.floor(e / phi);
+    t = phi;
+    // phi is remainder now, process same as
+    //Euclid's algo
+    phi = e % phi, e = t;
+    t =  x0;
+    x0 = x1 -q * x0;
+    x1 = t;
+  }  
+  
+  //Make x1 positive
+  if (x1 < 0)
+      x1 += m0;
+      
+    return BigInt(x1);
+ }
+   
+}
+    
+    
+    
+    
+    
+
+    
+
+class RSAEncryptor {
+    constructor(){
+        this.data = {
+            message: "",
+            publicKey: "",
+            privateKey: "",
+            p: "",
+            q: "",
+            e: ""
+        }
+    }
+    
+    setData(p, q, e){
+        this.data.p = p;
+        this.data.q = q;
+        this.data.e = e;
+    }
+    
+    encrypt(inputNumber){
+        var encrypted = inputNumber ** this.data.e % (this.data.p * this.data.q); 
+        return encrypted;
+    }
+}
+
+    
+    
+    
+    
+    /*
+let gen = new KeyGenerator();
+gen.setInput(1111111111111111111n, 1111111112345679001n, 17n);
+    
+let myKeys = gen.keys();
+console.log(myKeys);
+    
+    
+let d = myKeys.private[0];
+let input = 123n; 
+//let input = document.querySelector("#message").value;
+    
+// let input = 123n; 
+    //111717n;
+    
+let enc = new RSAEncryptor();
+enc.setData(1111111111111111111n, 1111111112345679001n, 17n);
+
+let res = enc.encrypt(input);
+console.warn(res);
+    
+enc.setData(1111111111111111111n, 1111111112345679001n, d);
+let dec = enc.encrypt(res);
+console.log(dec);
+    */
+
+    
+    
+    
+
+    
+ class Chunker {
+    constructor() {
+        this.chunks = [];
+        this.binaries = [];
+        this.ascii = [];
+    }
+
+
+    chunk(input, n) {
+        var split = input.split("");
+        var chunks = [];
+
+        if (split.length >= n) {
+
+            var i, j, temparray, chunk = n;
+            for (i = 0, j = split.length; i < j; i += chunk) {
+                temparray = split.slice(i, i + chunk);
+                chunks.push(temparray);
+            }
+
+        } else {
+            chunks = [split];
+        }
+
+        this.chunks = chunks;
+        return this;
+    }
+
+    convertToASCII() {
+        for (var i = 0; i < this.chunks.length; i++) {
+            this.ascii.push(this.chunks[i].map(x => x.charCodeAt(0)));
+        }
+
+        return this;
+    }
+
+    convertToBinary() {
+        for (var i = 0; i < this.ascii.length; i++) {
+            this.binaries.push(this.ascii[i].map(x => x.toString(2).padStart(10, 0)));
+        }
+        
+        return this.binaries;
+    }
+     
+     
+    getNumber(codes){
+        var groupedBinaries = [];
+for (var i = 0; i < codes.length; i++){
+    let data = codes[i].join("");
+   // console.error(data);
+    groupedBinaries.push(data);
+}
+  
+var groupedInts = [];
+    
+for (var i = 0; i < groupedBinaries.length; i++){
+let int = parseInt(groupedBinaries[i], 2);
+groupedInts.push(int);
+}
+        
+        
+        
+        return groupedInts;
+   
+    }
+     
+     
+     
+     
+     
+     
+}
+
+
+    
+    
+    
+    
+//----------------------------------USAGE----------------------   
+
+
+let encrypt = document.querySelector("#encrypt");
+encrypt.addEventListener("click", performEncryption);
+                        
+    
+    
+    
+    
+    
+    
+function performEncryption(){
+  
+    
+let message = document.querySelector("#message").value;
+let pValue = document.querySelector("#pPrime").value;
+let qValue = document.querySelector("#qPrime").value;
+let ePrime = document.querySelector("#ePrime").value;
+let encryptedOutput = document.querySelector("#encryptedMessage");
+    
+let gen = new KeyGenerator();
+gen.setInput(BigInt(pValue), BigInt(qValue), BigInt(ePrime))
+
+let myKeys = gen.keys();
+writeToUI(myKeys);
+ 
+let ch = new Chunker();
+let chunked = ch
+    .chunk(message, 7)
+    .convertToASCII()
+    .convertToBinary();
+    
+    
+    console.log(chunked);
+    
+    
+let number = ch.getNumber(chunked);
+console.log(number);
+
+
+let enc = new RSAEncryptor();
+enc.setData(BigInt(pValue), BigInt(qValue), BigInt(ePrime));
+
+let res = enc.encrypt(123n);  
+encryptedOutput.value = res;
+
+enc.setData(BigInt(pValue), BigInt(qValue), BigInt(myKeys.d));
+let dec = enc.encrypt(res);
+console.log(dec);
+}
+    
+    
+    
+    
+    
+    
+
+    
+    
+    
+
+function writeToUI(myKeys){
+    let privateEl = document.querySelector("#privateKey");
+let publicEl = document.querySelector("#publicKey");
+    
+    publicEl.innerHTML = "Public key: [" + myKeys.public[0] + ", " + myKeys.public[1] + "]";
+    
+privateEl.innerHTML = "Private key: [" + myKeys.private[0] + ", " + myKeys.private[1] + "]" + " (d = " + myKeys.d + ")";   
+}
+                        
+    
+    
+    
+    
+  
+    
+
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    // gen.setInput(1111111111111111111n, 1111111112345679001n, 17n);
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+// 337587917446653715596592958817679803n ^ 17 % (1111111111111111111n * 1111111112345679001n)
+
+   /* 
+let er = ENC(103 * 107, 17, input);
+console.log(er);
+    
+let de = decrypt(er, d, 61 * 53);
+console.log(de);
+    
+*/
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+function ENC(N, e, M) {
+   var r,i=0,prod=1,rem_mod=0;
+   while (e>0)
+   {
+      r=e % 2;
+      if (i++==0)
+         rem_mod=M % N;
+      else
+         rem_mod=power(rem_mod,2) % N;
+      if (r==1)
+      {
+         prod*=rem_mod;
+         prod=prod % N;
+      }
+      e=parseInt(e/2);
+   }
+   return prod;
+}
+    
+function power(a, b)
+{
+   var temp=1, i;
+   for(i=1;i<=b;i++)
+      temp*=a;
+    return temp;
+}
+    
+    
+    
+function decrypt(c, d, N) {
+   var r,i=0,prod=1,rem_mod=0;
+   while (d>0)
+   {
+      r=d % 2;
+      if (i++==0)
+         rem_mod=c % N;
+      else
+         rem_mod=power(rem_mod,2) % N;
+      if (r==1)
+      {
+         prod*=rem_mod;
+         prod=prod % N;
+      }
+      d=parseInt(d/2);
+   }
+   return prod;
+}
+    
+
+</script>
+
+
+
+
+
+
+
+
+
