@@ -33,7 +33,7 @@ void initTable(_HashTable * table, size_t size){
 
 
 void insert(_HashTable * table, char name[20]) {
-    int hash = strlen(name) % table->size; //getHash(name, table);
+    int hash = strlen(name) % table->size;
     _HashNode * node = malloc(sizeof(_HashNode));
     strcpy(node->name, name);
     table->buckets[hash] = node;
