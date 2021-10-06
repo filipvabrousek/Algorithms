@@ -24,7 +24,5 @@ void insert(_ListNode ** head, char insertName [20]){ // Writes to signle with *
 int main(int argc, const char * argv[]) {
     _ListNode * last = malloc(sizeof(_ListNode));
     insert(&last, "Filip");
-    insert(&last, "Karel");
-    insert(&last, "Eda");
     return 0;
 }
