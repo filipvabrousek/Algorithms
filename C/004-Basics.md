@@ -1,7 +1,9 @@
 ## C
 
 ```c
-printf("Hello C!"); // inside main()
+int main() {
+    printf("Hello C!");
+}
 ```
 
 ```c
