@@ -57,15 +57,6 @@ printf("Me is %d", me.id);
 ```
 
 
-
-### Memory allocation
-
-```c
-Node * allocated = malloc(sizeof(Node));
-Node * reallocated = realloc(allocated, 20);
-```
-
-
 ### User input
 
 ```c
@@ -76,7 +67,6 @@ printf("You entered: %s", str);
 
 
 ### Files
-
 ```c
 FILE * fp = fopen("file.txt","w+");
 fprintf(fp, "Testing...");
@@ -90,4 +80,10 @@ char line[256];
 while (fgets(line, sizeof(line), opened)) {
        printf(line);
 }
+```
+
+### Memory allocation
+```c
+Node * allocated = malloc(sizeof(Node));
+Node * reallocated = realloc(allocated, 20);
 ```
