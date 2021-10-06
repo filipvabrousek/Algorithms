@@ -87,3 +87,11 @@ while (fgets(line, sizeof(line), opened)) {
 Node * allocated = malloc(sizeof(Node));
 Node * reallocated = realloc(allocated, 20);
 ```
+
+### strcpy
+```c
+char * str = (char *) malloc(10);
+strcpy(str, "Filip");
+free(str);
+```
+
