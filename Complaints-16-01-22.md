@@ -203,10 +203,10 @@ public DbSet<Complaint> Complaints { get; set; }
 ```sql
  USE `UTB.Eshop`;
 
-CREATE TABLE Complaint(
+CREATE TABLE MyComplaint(
 id int,
 ProductID int,
-Reason varchar(50)
+Duvod varchar(100)
 );
 
 ```
