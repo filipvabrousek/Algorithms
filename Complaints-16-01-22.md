@@ -165,3 +165,33 @@ EshopDbContext
 public DbSet<Complaint> Complaints { get; set; }
 
 ```
+
+
+
+
+
+```cshtml
+...
+...
+
+ <tr>
+                                    <td class="col-sm-3">@itemOrderItems.Product.Name</td>
+                                    <td class="col-sm-1">@itemOrderItems.Amount</td>
+                                    <td class="col-sm-1">@itemOrderItems.Price.ToString("C2")</td>
+                                   
+
+
+                                    <td>
+                                        <a asp-controller="Complaint"
+                                           asp-action="ComplainIt"
+                                           asp-route-name="@itemOrderItems.Product.Name"
+                                           asp-route-productID="@itemOrderItems.Product.ID"
+                        
+                                           asp-area="Customer">
+                                            <h2>Complain</h2>
+                                        </a>
+                                    </td> 
+                                </tr>
+                                
+                                
+                                ...
