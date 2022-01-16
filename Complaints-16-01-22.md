@@ -195,3 +195,18 @@ public DbSet<Complaint> Complaints { get; set; }
                                 
                                 
                                 ...
+                                
+                                
+```
+## ComplaintTable SQL
+                                
+```sql
+ USE `UTB.Eshop`;
+
+CREATE TABLE Complaint(
+id int,
+ProductID int,
+Reason varchar(50)
+);
+
+```
