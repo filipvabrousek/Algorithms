@@ -25,7 +25,7 @@
 ```
 
 
-ManagerNoteController.cs
+## Areas/Admin/Controllers/ManagerNoteController.cs
 
 
 ```cshtml
