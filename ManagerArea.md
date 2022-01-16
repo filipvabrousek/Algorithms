@@ -114,8 +114,7 @@ namespace UTB.Eshop.Web.Models.Entity
 ```
 
 
-
-## SQl CREATE command
+## USE `UTB.Eshop`;
 
 ```sql
 CREATE TABLE Note(
