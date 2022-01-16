@@ -117,6 +117,8 @@ namespace UTB.Eshop.Web.Models.Entity
 ## USE `UTB.Eshop`;
 
 ```sql
+USE `UTB.Eshop`;
+
 CREATE TABLE Note(
 ID int primary key,
 ProductID int,
