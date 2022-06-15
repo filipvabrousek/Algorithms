@@ -47,6 +47,7 @@ SECTIONS {
   .text : { *(.) }
 }
 ```
+<img width="779" alt="Screenshot 2022-06-15 at 19 24 01" src="https://user-images.githubusercontent.com/18376136/173888200-391d145d-f859-48b7-b638-3aad4a1cfaed.png">
 
 
 
